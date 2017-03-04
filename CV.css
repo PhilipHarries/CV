@@ -1,0 +1,59 @@
+body {
+	font-family: sans-serif;
+}
+
+#name {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2em;
+}
+
+#address, #tel, #email {
+	text-align: center;
+}
+
+.title {
+	text-align: left;
+	text-indent: 3em;
+	font-weight: bold;
+	clear: both;
+}
+
+.company_name {
+	text-align: left;
+	font-weight: bold;
+	padding-top: 1em;
+}
+
+.job_title {
+	text-align: left;
+	font-style: italic;
+}
+
+.job_details {
+	text-align: left;
+	list-style-position: inside;
+}
+
+#education .qualification {
+	width: 100%;
+	word-wrap: normal;
+	clear: both;
+}
+
+#keyskills ul li {
+	display: inline;
+}
+
+#keyskills ul li:after {
+	content: ", ";
+}
+
+#keyskills ul li.last:after {
+	content: "";
+}
+
+#wordcloud {
+	padding-top: 3em;
+	clear: both;
+}
