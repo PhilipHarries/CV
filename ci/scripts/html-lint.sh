@@ -37,7 +37,7 @@ fi
 
 pwd
 ls
-tidy --drop-empty-elements no ./CV-git/CV.html
+tidy --drop-empty-elements no ./CVrepo/CV.html
 
 if [[ ${?} -eq 0 ]];then
   echo "Test passed successfully"

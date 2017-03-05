@@ -6,7 +6,7 @@ image_resource:
   source: {repository: centos}
 
 inputs:
-- name: CV-git
+- name: CVrepo
 
 run:
-  path: ./CV-git/ci/scripts/deploy.sh
+  path: ./CVrepo/ci/scripts/deploy.sh

@@ -1,19 +1,27 @@
 ---
-jobs:
-- name: html-lint-cv
-  public: true
-  serial: true
-  plan:
-  - get: CV-git
-    trigger: true
-  - task: html-lint
-    file: CV-git/ci/pipelines/html-lint.yml
-  - task: deploy
-    file: CV-git/ci/pipelines/deploy.yml
-
 resources:
-- name: CV-git
+- name: CVrepo
   type: git
   source:
     uri: https://github.com/PhilipHarries/CV.git
     branch: master
+
+jobs:
+- name: html-lint-cv
+  public: true
+  build-logs-to-retain: 8
+  plan:
+  - get: CVrepo
+    trigger: true
+  - task: html-lint
+    file: CVrepo/ci/pipelines/html-lint.yml
+
+- name: deploy-cv
+  public: true
+  build-logs-to-retain: 8
+  plan:
+  - get: CVrepo
+    passed: [html-lint-cv]
+    trigger: true
+  - task: deploy
+    file: CVrepo/ci/pipelines/deploy.yml

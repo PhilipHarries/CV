@@ -6,7 +6,7 @@ image_resource:
   source: {repository: philipharries/html_tidy}
 
 inputs:
-- name: CV-git
+- name: CVrepo
 
 run:
-  path: ./CV-git/ci/scripts/html-lint.sh
+  path: ./CVrepo/ci/scripts/html-lint.sh
