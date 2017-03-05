@@ -1,0 +1,19 @@
+---
+jobs:
+- name: html-lint-cv
+  public: true
+  serial: true
+  plan:
+  - get: CV-git
+    trigger: true
+  - task: html-lint
+    file: CV-git/ci/pipelines/html-lint.yml
+  - task: deploy
+    file: CV-git/ci/pipelines/deploy.yml
+
+resources:
+- name: CV-git
+  type: git
+  source:
+    uri: https://github.com/PhilipHarries/CV.git
+    branch: master

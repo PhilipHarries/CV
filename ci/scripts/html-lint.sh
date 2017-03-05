@@ -4,20 +4,22 @@ set -o errexit
 set -o pipefail
 set -u
 
+echo "checking if html tidy is present..."
 if ! which tidy >/dev/null 2>&1;then
-   # need to install htmltidy
+   echo "html tidy is not present"
    latest_url="$(curl -sI https://github.com/htacg/tidy-html5/releases/latest|grep Location:|awk '{print $2}'|sed s///g)"
    latest_semver="$(echo ${latest_url}|awk -F/ '{print $NF}')"
    # test if rpm or deb system:
   if /usr/bin/rpm -q -f /usr/bin/rpm >/dev/null;then
     # likely rpm
     file="tidy-${latest_semver}-64bit.rpm"
-    url="${latest_url}/${file}"
-    curl -so /tmp/tidy-${latest_semver}-64bit.rpm "${url}"
+    url="https://github.com/htacg/tidy-html5/releases/download/${latest_semver}/${file}"
+    echo "fetching ${url}"
+    curl -LO "${url}"
     if which dnf >/dev/null 2>&1;then
-      sudo dnf install -y "/tmp/${file}"
+      dnf install -y "./${file}"
     else
-      sudo yum install -y "/tmp/${file}"
+      yum install -y "./${file}"
     fi
   else
     # likely deb
@@ -27,12 +29,15 @@ if ! which tidy >/dev/null 2>&1;then
     curl -so "/tmp/tidy/${file}" "${url}"
     (
       cd /tmp/tidy
-      sudo dpkg -i "${file}"
-      sudo apt-get install -f
+      dpkg -i "${file}"
+      apt-get install -f
     )
   fi
 fi
-tidy --drop-empty-elements no ./CV.html
+
+pwd
+ls
+tidy --drop-empty-elements no ./CV-git/CV.html
 
 if [[ ${?} -eq 0 ]];then
   echo "Test passed successfully"
