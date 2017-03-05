@@ -25,3 +25,8 @@ jobs:
     trigger: true
   - task: deploy
     file: CVrepo/ci/pipelines/deploy.yml
+    params:
+      SSH_USER: {{ssh-user}}
+      SSH_KEY: {{ssh-key}}
+      TARGET_SERVER: {{target-server}}
+      DEPLOY_PATH: {{deploy-path}}
